@@ -27,7 +27,7 @@ def main_play(num_episodes: int, env_name: str) -> None:
     n_actions = env.action_space.shape[0]         # 1
 
     actor = Actor(n_features=n_features, n_actions=n_actions)
-    model_path = os.path.join(MODEL_DIR, "td3_QuanserQube_2162.7_2026-06-14_20-56-34_best.pth")
+    model_path = os.path.join(MODEL_DIR, "td3_{0}_latest.pth".format(env_name))
     actor.load_state_dict(torch.load(model_path, weights_only=True))
     actor.eval()
     print("[TEST] loaded:", os.path.basename(model_path))
