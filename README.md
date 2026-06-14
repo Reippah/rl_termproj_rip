@@ -1,7 +1,7 @@
-# Quanser Qube-Servo 3 회전형 역진자 — TD3 강화학습
+# Quanser Qube-Servo 3 Rotary Inverted Pendulum — TD3 Reinforcement Learning
 
 실하드웨어(**Quanser Qube-Servo 3**) 위에서 **TD3**(Twin Delayed DDPG)로 회전형 역진자(Furuta pendulum)를
-아래에서 흔들어 올리고(**swing-up**) 정점에서 **균형을 유지**하는 프로젝트입니다.
+아래에서 흔들어 올리고(**swing-up**) 정점에서 **균형을 유지**하는 프로젝트이다.
 
 ## 디렉토리 구조
 
@@ -101,8 +101,8 @@ python b_td3_train.py
 ```
 
 - 장치 전원 연결 + USB 연결 후, **펜듈럼을 아래로 매달아 완전히 정지**시킨 상태에서 실행
-- 시작 시 모터가 양극단을 짚어 중앙을 자동 보정합니다 (`[INIT] 모터 극단: ...`)
-- best 모델은 `models/td3_QuanserQube_<reward>_<time>_best.pth` 로 저장되고 `..._latest.pth` 가 갱신됩니다
+- 시작 시 모터가 양극단을 짚어 중앙을 자동 보정 (`[INIT] 모터 극단: ...`)
+- best 모델은 `models/td3_QuanserQube_<reward>_<time>_best.pth` 로 저장되고 `..._latest.pth` 가 갱신됨
 
 ### 테스트 / 시연
 
@@ -128,5 +128,5 @@ python c_td3_test.py
 
 ## 참고
 
-- 학습 곡선(validation 평균 보상)은 0 근처에서 머물다 swing-up을 발견하는 시점에 계단식으로 도약하여 ~2160에서 수렴합니다.
-- 실하드웨어 특성상 매 reset에서 펜듈럼 영점을 재보정하고, 모터 중앙을 자동 보정하여 좌표계 일관성을 유지합니다.
+- 학습 곡선(validation 평균 보상)은 0 근처에서 머물다 swing-up을 발견하는 시점에 계단식으로 도약하여 ~2160에서 수렴
+- 실하드웨어 특성상 매 reset에서 펜듈럼 영점을 재보정하고, 모터 중앙을 자동 보정하여 좌표계 일관성을 유지
