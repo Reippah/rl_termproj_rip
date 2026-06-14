@@ -18,9 +18,9 @@
     └── quanser_reset.py           # HW 인터페이스: reset · 모터 자동 중앙보정 · 펜듈럼 영점 재보정 · 안전 종료 · LED
 ```
 
-> **중요**: `quanser_env.py`는 `envs/`, `quanser_reset.py`는 `hardware/` 안에 두어야 import가 동작합니다
+> **중요**: `quanser_env.py`는 `envs/`, `quanser_reset.py`는 `hardware/` 안에 두어야 import가 동작함
 > (`from envs.quanser_env import QuanserEnv`, `from hardware.quanser_reset import ...`).
-> 각 하위 폴더에는 빈 `__init__.py`가 필요합니다.
+> 각 하위 폴더에는 빈 `__init__.py`가 필요
 
 ---
 
@@ -75,7 +75,7 @@ PDF 명세(각도 기반)를 따르되, 실패 -> 개선을 거쳐 다음 형태
 | `target_policy_noise` / `clip` | 0.2 / 0.5 | target smoothing |
 | `validation_num_episodes` | 5 | 검증 에피소드 수 |
 
-> 제어 루프(100 Hz) 중에는 학습하지 않고 **에피소드가 끝난 뒤 일괄 업데이트**하여 실시간 제어를 보호합니다.
+> 제어 루프(100 Hz) 중에는 학습하지 않고 **에피소드가 끝난 뒤 일괄 업데이트**하여 실시간 제어를 보호
 
 ---
 
@@ -123,10 +123,12 @@ python c_td3_test.py
 | 2 | `(θ/π)²` (제곱) | swing-up 성공, 그러나 **정점에서 1초만 버티고 반복** | 정점 ×2 보상 때문에 "잠깐 버티기"와 "오래 버티기" 차이가 작음 (보상 해킹) |
 | 3 | 2 + **속도 페널티 강화 + 정점 안정 유지 보너스** | **무한 균형** | "수직 AND 저속"일 때만 보너스 → 오래 안정적으로 서 있는 것만 보상 |
 
-한국기술교육대학교 컴퓨터공학부 2023100516 이종현
 ---
 
 ## 참고
 
 - 학습 곡선(validation 평균 보상)은 0 근처에서 머물다 swing-up을 발견하는 시점에 계단식으로 도약하여 ~2160에서 수렴
 - 실하드웨어 특성상 매 reset에서 펜듈럼 영점을 재보정하고, 모터 중앙을 자동 보정하여 좌표계 일관성을 유지
+
+---
+한국기술교육대학교 컴퓨터공학부 2023100516 이종현
