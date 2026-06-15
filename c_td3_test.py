@@ -1,6 +1,9 @@
 import os
+
 import torch
+
 from a_actor_and_twin_q_critic import MODEL_DIR, Actor
+
 
 def test(env, actor: Actor, num_episodes: int) -> None:
     for i in range(num_episodes):
@@ -18,17 +21,20 @@ def test(env, actor: Actor, num_episodes: int) -> None:
         print("[EPISODE: {0}] EPISODE_STEPS: {1:4d}, EPISODE REWARD: {2:6.1f}".format(
             i, episode_steps, episode_reward))
 
+
 def main_play(num_episodes: int, env_name: str) -> None:
     from envs.quanser_env import QuanserEnv
 
-    env = QuanserEnv(max_steps=2000, verbose_reset=False)
+    env = QuanserEnv(max_steps=1000, verbose_reset=True)
 
     n_features = env.observation_space.shape[0]   # 5
     n_actions = env.action_space.shape[0]         # 1
 
     actor = Actor(n_features=n_features, n_actions=n_actions)
     model_path = os.path.join(MODEL_DIR, "td3_{0}_latest.pth".format(env_name))
-    actor.load_state_dict(torch.load(model_path, weights_only=True))
+    # GPU에서 학습한 모델도 CPU 전용 기기에서 로드 가능하도록 현재 기기로 매핑
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    actor.load_state_dict(torch.load(model_path, weights_only=True, map_location=device))
     actor.eval()
     print("[TEST] loaded:", os.path.basename(model_path))
 
@@ -36,6 +42,7 @@ def main_play(num_episodes: int, env_name: str) -> None:
         test(env, actor, num_episodes=num_episodes)
     finally:
         env.close()
+
 
 if __name__ == "__main__":
     NUM_EPISODES = 5
